@@ -10,7 +10,7 @@ class AquaConnectionManagerTest {
 
         val connection =
             AquaConnectionManager(
-                "mongodb://localhost:27017",
+                "mongodb://root:password@localhost:27017",
                 "aquatest"
             )
 
