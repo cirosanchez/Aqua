@@ -39,9 +39,6 @@ class AquaRepository<T : Any>(
                 "Collection name cannot be blank."
             }
 
-            requireNotNull(documentMapper) {
-                "DocumentMapper cannot be null."
-            }
 
             return AquaRepository(
                 collectionName = collectionName,
