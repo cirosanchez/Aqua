@@ -20,6 +20,38 @@ class AquaRepository<T : Any>(
     private val documentMapper: AquaDocumentMapper<T>
 ) {
 
+    companion object {
+
+        /**
+         * A static method to be used to create a new instance of AquaRepository, providing total customization over
+         * the asynchronous execution features.
+         * @param collectionName The collection to be used for the corresponding kotlin object.
+         * @param connectionManager The connection manager for the repository.
+         * @param executor The executor for async operations.
+         * @param documentMapper The document mapper related to the repository.
+         */
+        fun <T: Any> create(collectionName: String,
+                            connectionManager: AquaConnectionManager,
+                            executor: AquaExecutor,
+                            documentMapper: AquaDocumentMapper<T>): AquaRepository<T> {
+
+            require(collectionName.isNotBlank()) {
+                "Collection name cannot be blank."
+            }
+
+            requireNotNull(documentMapper) {
+                "DocumentMapper cannot be null."
+            }
+
+            return AquaRepository(
+                collectionName = collectionName,
+                connectionManager = connectionManager,
+                executor = executor,
+                documentMapper = documentMapper
+            )
+        }
+    }
+
     /**
      * The collection in MongoDB of the kotlin object.
      */
