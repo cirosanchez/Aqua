@@ -32,4 +32,32 @@ class AquaRepository<T : Any>(
             document?.let { documentMapper.fromDocument(it) }
         }
     }
+
+    suspend fun update(obj: T) {
+        executor.run {
+            val document = documentMapper.toDocument(obj)
+
+            val id = document["_id"]
+
+            collection.updateOne(eq("_id", id), document)
+        }
+    }
+
+    suspend fun deleteById(id: String) {
+        executor.run({
+            collection.deleteOne(eq("_id", id))
+        })
+    }
+
+    suspend fun exists(id: String): Boolean {
+        return executor.run {
+            collection.find(eq("_id", id))
+                .firstOrNull() != null
+        }
+    }
+
+    fun shutdown() {
+        executor.shutdown()
+        connectionManager.close()
+    }
 }
