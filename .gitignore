@@ -43,3 +43,20 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+# IDE
+.idea/
+*.iml
+
+# Build outputs
+build/
+
+# Gradle cache
+.gradle/
+
+# Kotlin cache
+.kotlin/
+
+# OS junk
+.DS_Store
